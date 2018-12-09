@@ -1,7 +1,21 @@
 group 'com.github.sasachichito'
-version '1.0-SNAPSHOT'
+version '0.0.1-SNAPSHOT'
+
+buildscript {
+    ext {
+        junitPlatformVersion = '1.0.1'
+        junitJupiterVersion = '5.0.1'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.junit.platform:junit-platform-gradle-plugin:${junitPlatformVersion}"
+    }
+}
 
 apply plugin: 'java'
+apply plugin: 'org.junit.platform.gradle.plugin'
 
 sourceCompatibility = 1.8
 
@@ -10,8 +24,9 @@ repositories {
 }
 
 dependencies {
-    testCompile('org.mockito:mockito-core:latest.release')
-    testCompile('org.junit.jupiter:junit-jupiter-params:5.0.0')
-    testImplementation('org.junit.jupiter:junit-jupiter-api:5.0.0')
-    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.0")
+    testCompile "org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}"
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}"
+    testCompileOnly 'org.apiguardian:apiguardian-api:1.0.0'
+
+    testCompile 'org.mockito:mockito-core:latest.release'
 }
