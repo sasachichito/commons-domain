@@ -1,32 +1,70 @@
-group 'com.github.sasachichito'
-version '0.0.1-SNAPSHOT'
-
 buildscript {
-    ext {
-        junitPlatformVersion = '1.0.1'
-        junitJupiterVersion = '5.0.1'
-    }
     repositories {
+        jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath "org.junit.platform:junit-platform-gradle-plugin:${junitPlatformVersion}"
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4"
+        classpath "org.junit.platform:junit-platform-gradle-plugin:1.0.1"
     }
 }
 
+ext {
+    majorVersion = 0
+    minorVersion = 0
+    patchVersion = 3
+}
+
+apply plugin: 'com.jfrog.bintray'
 apply plugin: 'java'
 apply plugin: 'org.junit.platform.gradle.plugin'
+apply plugin: 'maven-publish'
 
 sourceCompatibility = 1.8
+group 'com.github.sasachichito'
+version "${majorVersion}.${minorVersion}.${patchVersion}"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    ext {
+        junitJupiterVersion = '5.0.1'
+    }
     testCompile "org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}"
     testRuntime "org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}"
     testCompileOnly 'org.apiguardian:apiguardian-api:1.0.0'
-
     testCompile 'org.mockito:mockito-core:latest.release'
+}
+
+task sourceJar(type: Jar) {
+    classifier 'sources'
+    from sourceSets.main.allJava
+}
+
+task javaDocJar(type: Jar, dependsOn: javadoc) {
+    classifier 'javadoc'
+    from javadoc.destinationDir
+}
+
+publishing {
+    publications {
+        aModule(MavenPublication) {
+            from components.java
+            artifact sourceJar
+            artifact javaDocJar
+        }
+    }
+}
+
+bintray {
+    user = project.hasProperty("bintrayUser") ? bintrayUser : ""
+    key = project.hasProperty("bintrayKey") ? bintrayKey : ""
+    publications = ["aModule"]
+    publish = true
+    pkg {
+        repo = "maven"
+        name = "commons-domain"
+    }
 }
