@@ -3,21 +3,39 @@ package com.github.sasachichito.assertion;
 import java.util.function.BooleanSupplier;
 
 /**
- * please static import this class.
+ * Provide check method for specific-domain.
+ * <p>
+ * Use static import this class when using.
  */
 public class Assertion {
 
     /**
-     * There is no problem if BooleanSupplier returns true,
-     * otherwise there is a problem.
+     * Checks code.
+     * <p>
+     * When code returns false, there is a problem.
+     * <pre>{@code
+     * check(() -> start.isBefore(end),
+     *     "start must be before end");
+     * }</pre>
      *
-     * @param booleanSupplier
-     * @param message
+     * @param code the code to be checked, not null
+     * @param message the message for exception, not null, not empty
+     * @throws IllegalArgumentException when {@code code.getAsBoolean() == false}
      */
-    public static void check(BooleanSupplier booleanSupplier, String message) {
-        if (booleanSupplier.getAsBoolean()) {
+    public static void check(BooleanSupplier code, String message) throws IllegalArgumentException {
+
+        if (code == null) {
+            throw new IllegalArgumentException("code required");
+        }
+
+        if (message == null || message.isEmpty()) {
+            throw new IllegalArgumentException("err message required");
+        }
+
+        if (code.getAsBoolean()) {
             return; // No problem.
         }
+
         throw new IllegalArgumentException(message);
     }
 }
