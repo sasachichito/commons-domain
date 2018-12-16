@@ -8,19 +8,19 @@ import static org.mockito.Mockito.*;
 class DomainEventPublisherTest {
 
     @Test
-    void successSetSubscribers() {
+    void setSubscribersSuccess() {
         DomainEventPublisher publisher = new DomainEventPublisher();
         DomainEventSubscriber subscriber = new DomainEventSubscriber() {
             @Override
             public void handleEvent(DomainEvent domainEvent) {}
         };
-        publisher.setSubscribers(subscriber);
+        publisher.setSubscriber(subscriber);
 
         assertTrue(publisher.hasSubscribers());
     }
 
     @Test
-    void successDomainEventPublish() {
+    void domainEventPublishSuccess() {
         DomainEventPublisher publisher = new DomainEventPublisher();
 
         DomainEventSubscriber subscriber1 = new DomainEventSubscriber() {
@@ -45,8 +45,8 @@ class DomainEventPublisherTest {
         when(mockEvent.occurredOn()).thenReturn(LocalDateTime.of(2018, 12, 25, 21, 0, 0, 0));
 
         publisher
-                .setSubscribers(subscriber1)
-                .setSubscribers(subscriber2)
+                .setSubscriber(subscriber1)
+                .setSubscriber(subscriber2)
                 .publish(mockEvent);
 
         verify(mockEvent, times(2)).version();

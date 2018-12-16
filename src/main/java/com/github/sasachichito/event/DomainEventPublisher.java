@@ -5,7 +5,18 @@ import java.util.List;
 
 public class DomainEventPublisher {
 
+    private static final ThreadLocal<DomainEventPublisher> instance = new ThreadLocal<DomainEventPublisher>() {
+        @Override
+        protected DomainEventPublisher initialValue() {
+            return new DomainEventPublisher();
+        }
+    };
+
     private List<DomainEventSubscriber> subscribers = new ArrayList<>();
+
+    public static DomainEventPublisher instance() {
+        return instance.get();
+    }
 
     public void publish(DomainEvent domainEvent) {
 
@@ -22,7 +33,7 @@ public class DomainEventPublisher {
         return !(subscribers == null || subscribers.isEmpty());
     }
 
-    public DomainEventPublisher setSubscribers(DomainEventSubscriber domainEventSubscriber) {
+    public DomainEventPublisher setSubscriber(DomainEventSubscriber domainEventSubscriber) {
         this.subscribers.add(domainEventSubscriber);
         return this;
     }
