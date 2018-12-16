@@ -2,8 +2,8 @@ buildscript {
     ext.artifact = [
         groupId : 'com.github.sasachichito',
         majorVersion : '0',
-        minorVersion : '0',
-        patchVersion : '3',
+        minorVersion : '1',
+        patchVersion : '0',
         compatible : '1.8'
     ]
     ext.versions = [
@@ -48,6 +48,7 @@ repositories {
 
 dependencies {
     testCompile "org.junit.jupiter:junit-jupiter-api:${versions.junitJupiterVersion}"
+    testCompile "org.junit.jupiter:junit-jupiter-params:${versions.junitJupiterVersion}"
     testRuntime "org.junit.jupiter:junit-jupiter-engine:${versions.junitJupiterVersion}"
     testCompileOnly "org.apiguardian:apiguardian-api:${versions.apiguardian}"
     testCompile "org.mockito:mockito-core:${versions.mockitoCore}"
