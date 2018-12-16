@@ -9,11 +9,13 @@ class DomainEventPublisherTest {
 
     @Test
     void setSubscribersSuccess() {
-        DomainEventPublisher publisher = new DomainEventPublisher();
+
         DomainEventSubscriber subscriber = new DomainEventSubscriber() {
             @Override
             public void handleEvent(DomainEvent domainEvent) {}
         };
+
+        DomainEventPublisher publisher = DomainEventPublisher.instance();
         publisher.setSubscriber(subscriber);
 
         assertTrue(publisher.hasSubscribers());
@@ -21,7 +23,6 @@ class DomainEventPublisherTest {
 
     @Test
     void domainEventPublishSuccess() {
-        DomainEventPublisher publisher = new DomainEventPublisher();
 
         DomainEventSubscriber subscriber1 = new DomainEventSubscriber() {
             @Override
@@ -44,6 +45,7 @@ class DomainEventPublisherTest {
         when(mockEvent.version()).thenReturn(1);
         when(mockEvent.occurredOn()).thenReturn(LocalDateTime.of(2018, 12, 25, 21, 0, 0, 0));
 
+        DomainEventPublisher publisher = DomainEventPublisher.instance();
         publisher
                 .setSubscriber(subscriber1)
                 .setSubscriber(subscriber2)
