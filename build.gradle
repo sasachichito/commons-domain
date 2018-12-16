@@ -3,7 +3,7 @@ buildscript {
         groupId : 'com.github.sasachichito',
         majorVersion : '0',
         minorVersion : '1',
-        patchVersion : '0',
+        patchVersion : '1',
         compatible : '1.8'
     ]
     ext.versions = [
