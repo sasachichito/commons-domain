@@ -6,12 +6,12 @@ This is library common to each domain.
 <dependency>
   <groupId>com.github.sasachichito</groupId>
   <artifactId>commons-domain</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
   <type>pom</type>
 </dependency>
 ```
 
 ### gradle
 ```$xslt
-compile 'com.github.sasachichito:commons-domain:0.1.0'
+compile 'com.github.sasachichito:commons-domain:0.1.1'
 ```
