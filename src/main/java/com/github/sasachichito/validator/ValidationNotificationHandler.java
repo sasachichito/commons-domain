@@ -6,6 +6,29 @@ package com.github.sasachichito.validator;
 public interface ValidationNotificationHandler {
 
     /**
+     * NullObject of this.
+     */
+    public static final ValidationNotificationHandler NOT_HANDLE = new ValidationNotificationHandler() {
+        @Override
+        public void handleError(String notificationMessage) {}
+
+        @Override
+        public void handleError(String notification, Object object) {}
+
+        @Override
+        public void handleInfo(String notificationMessage) {}
+
+        @Override
+        public void handleInfo(String notification, Object object) {}
+
+        @Override
+        public void handleWarning(String notificationMessage) {}
+
+        @Override
+        public void handleWarning(String notification, Object object) {}
+    };
+
+    /**
      * Handles validation error.
      *
      * @param notificationMessage the notification message, not null, not empty

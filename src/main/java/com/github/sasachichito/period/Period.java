@@ -26,7 +26,7 @@ public class Period {
      */
     public Period(LocalDateTime start, LocalDateTime end) {
 
-        check(() -> start.isBefore(end),
+        expect(() -> start.isBefore(end),
             "start must be before end");
 
         this.start = start;

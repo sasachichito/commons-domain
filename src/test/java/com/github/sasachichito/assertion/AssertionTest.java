@@ -8,34 +8,34 @@ class AssertionTest {
 
     @Test
     void checkNoProblem() {
-        check(() -> true, "err");
+        expect(() -> true, "err");
     }
 
     @Test
     void checkProblem() {
         Throwable exception = assertThrows(IllegalArgumentException.class,
-            () -> check(() -> false, "err"));
+            () -> expect(() -> false, "err"));
         assertEquals("err", exception.getMessage());
     }
 
     @Test
     void checkMessageNull() {
         Throwable exception = assertThrows(IllegalArgumentException.class,
-            () -> check(() -> false, null));
+            () -> expect(() -> false, null));
         assertEquals("err message required", exception.getMessage());
     }
 
     @Test
     void checkCodeNull() {
         Throwable exception = assertThrows(IllegalArgumentException.class,
-            () -> check(null, "err"));
+            () -> expect(null, "err"));
         assertEquals("code required", exception.getMessage());
     }
 
     @Test
     void checkCodeAndMessageNull() {
         Throwable exception = assertThrows(IllegalArgumentException.class,
-            () -> check(null, null));
+            () -> expect(null, null));
         assertEquals("code required", exception.getMessage());
     }
 }
