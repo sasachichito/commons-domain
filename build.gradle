@@ -11,7 +11,7 @@ buildscript {
         junitPlatformPlugin : '1.0.1',
         junitJupiterVersion : '5.0.1',
         apiguardian : '1.0.0',
-        mockitoCore : 'latest.release'
+        mockitoCore : '2.23.4'
     ]
     ext.bintrayConf = [
         repositoryName : 'maven',
