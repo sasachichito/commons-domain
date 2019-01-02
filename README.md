@@ -13,5 +13,5 @@ The library common to various domain.
 
 ### gradle
 ```$xslt
-compile 'com.github.sasachichito:commons-domain:0.2.0'
+implementation 'com.github.sasachichito:commons-domain:0.2.0'
 ```
